@@ -1,0 +1,356 @@
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+<div class="container" *ngIf="!loading">
+    <p-fieldset styleClass="border-{{requestsService.statusTable[request?.status|| 100].color}}-500 mb-4 bg-gray-50">
+        <ng-template pTemplate="header">
+            <div class="p-2 bg-{{requestsService.statusTable[request?.status|| 100].color}}-100  border-round">
+                <i class="pi {{requestsService.statusTable[request?.status|| 100].icon}} mr-2"></i>
+                <span class="font-bold text-{{requestsService.statusTable[request?.status|| 100].color}}">Statut
+                    {{requestsService.statusTable[request?.status||
+                    100].label }}</span>
+            </div>
+        </ng-template>
+        <p-toolbar styleClass="border-none bg-none">
+            <ng-template pTemplate="left">
+                <h5>Détail de la demande d'analyse <span class="text-primary-500"> {{request?.code}}
+                    </span><span class="font-bold" *ngIf="isAdmin">, {{request?.user?.fullName}}
+                    </span> </h5>
+            </ng-template>
+            <ng-template pTemplate="right">
+                <button pButton pRipple *ngFor="let action of actions; index as i" [label]="action.label"
+                    class="border-none mx-2  bg-{{action?.code? requestsService.statusTable[action?.code|| 100].color : 'primary'}}-500"
+                    icon="pi {{confirmDialog ? 'pi-spin pi-spinner': requestsService.statusTable[action?.code|| 100].icon}}"
+                    [loading]="loading" (click)="updateRequestStatus(i)" [disabled]="confirmDialog"></button>
+                <!-- <div *ngIf="canEdit"
+                    class="flex justify-content-center align-items-center border-round border-1 border-solid border-primary p-1 ">
+                    <span class="mr-2">Mode édition</span>
+                    <p-inputSwitch [(ngModel)]="edition"></p-inputSwitch>
+                </div> -->
+            </ng-template>
+        </p-toolbar>
+    </p-fieldset>
+    <div class="grid p-fluid">
+        <p-toast></p-toast>
+        <div class="col-12 md:col-6">
+            <div class="card">
+                <h5 class="mb-4">Informations sur la demande d'analyse</h5>
+                <div class="grid formgrid">
+
+                    <div class="col-12 mb-2 mt-4 lg:mb-0 p-formgrid grid">
+                        <div class="field col">
+                            <label for="name" class="block text-1000 font-medium mb-2">Titre</label>
+                            <input type="text" [readonly]="!edition" [ngModel]="request?.name" id="name" name="name"
+                                pInputText placeholder="Titre de votre requête">
+                        </div>
+                        <div class="field col">
+                            <label for="field" class="block text-900 font-medium mb-2">Domaine d'étude </label>
+                            <input type="text" [readonly]="!edition" [ngModel]="request?.field" id="field" name="field"
+                                pInputText placeholder="Domaine d'étude">
+                        </div>
+                    </div>
+
+                    <div class="col-12 mb-2 mt-4 lg:mb-0">
+                        <label for="desc" class="block text-900 font-medium mb-2">Description</label>
+                        <textarea rows="2" cols="30" id="desc" [readonly]="!edition" [ngModel]="request?.desc"
+                            name="desc" placeholder="Description" pInputTextarea></textarea>
+
+                    </div>
+                    <div class=" col-12 mb-2 mt-4 lg:mb-0 p-formgrid grid">
+                        <div class="field col">
+                            <label for="type" class="block text-900 font-medium mb-2">Type d'analyse</label>
+                            <input [ngModel]="request?.type" [readonly]="!edition" id="type" name="type"
+                                placeholder="Type d'analyse" pInputText>
+
+                        </div>
+                    </div>
+                    <div class="col-12 mb-2 mt-4 lg:mb-0">
+                        <label for="preferences" class="block text-900 font-medium mb-2">Préférences</label>
+                        <textarea rows="2" cols="30" id="preferences" [readonly]="!edition"
+                            [ngModel]="request?.preferences" name="preferences" placeholder="Préférences"
+                            pInputTextarea></textarea>
+                    </div>
+                    <div class=" col-12 mb-2 mt-4 lg:mb-0 p-formgrid grid">
+                        <div class="field col">
+                            <label for="preferences" class="block text-900 font-medium mb-2">Date limite</label>
+                            <input *ngIf="!edition" type="text" [readonly]="!edition"
+                                [ngModel]="request?.delay | date:'dd/MM/YYYY'" id="delay" name="delay" pInputText>
+                            <p-calendar *ngIf="edition" [showIcon]="true" id="delay" name="delay" inputId="icon"
+                                [(ngModel)]="date" [minDate]="minDate" [disabled]="loading"></p-calendar>
+                        </div>
+                        <div class="field col">
+                            <label for="preferences" class="block text-900 font-medium mb-2">Date de créarion</label>
+                            <input type="text" [readonly]="!edition"
+                                [ngModel]="request?.dates?.created | date:'dd/MM/YYYY'" id="created" name="created"
+                                pInputText>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <h5 class="mb-4">Informations sur la demande d'analyse</h5>
+                <div class="grid formgrid">
+
+                    <div class="col-12 mb-2 mt-4 lg:mb-0" *ngIf="request?.status === 400">
+                        <label for="reason" class="block text-900 font-medium mb-2">Raison du rejet</label>
+                        <textarea rows="2" cols="30" id="reason" readonly [ngModel]="request?.reason" name="reason"
+                            placeholder="Description" pInputTextarea></textarea>
+
+                    </div>
+                    <div class="col-12 mb-2 mt-4 lg:mb-0 p-formgrid grid" *ngIf="request?.amount">
+                        <div class="field col">
+                            <label for="name" class="block text-1000 font-medium mb-2">Prix de l'analyse</label>
+                            <input type="text" [readonly]="!edition" value="{{request?.amount}} XAF" id="name"
+                                name="name" pInputText placeholder="Titre de votre requête">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-12 md:col-6">
+            <div class="card">
+                <h5 class="mb-4">Pièces jointes</h5>
+
+                <div class="grid formgrid">
+
+                    <div class="col-12 mb-2 mt-4 lg:mb-0 w-full">
+                        <h5>Fichiers</h5>
+                        <p-table #dt [value]="request?.attachements" responsiveLayout="scroll" [rowHover]="true"
+                            dataKey="id">
+                            <ng-template pTemplate="body" let-file let-index="rowIndex">
+                                <tr>
+                                    <td>
+                                        <span class="truncate">
+                                            {{file.fileName | truncate : 45}}</span>
+                                    </td>
+                                    <td>
+                                        <!-- <button pButton pRipple icon="pi pi-eye" class="mr-2"
+                                            (click)="openView(file)"></button> -->
+                                        <a pButton [href]="getPath(file)" target="_blank" class="text-white" pRipple
+                                            icon="pi pi-arrow-circle-down"></a>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+
+                        <div class="col-12 mb-2 mt-4 lg:mb-0 w-full">
+                            <h5>Liens</h5>
+                            <p-table #dt [value]="request?.links" responsiveLayout="scroll" [rowHover]="true"
+                                dataKey="id">
+                                <ng-template pTemplate="body" let-link let-index="rowIndex">
+                                    <tr>
+                                        <td style="width: 40%;">
+                                            <a [href]="link" target="_blank" rel="noopener noreferrer ">
+                                                {{link | truncate : 60}}</a>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card">
+                <h5 class="mb-4">Livrables</h5>
+
+                <div class="grid formgrid">
+
+                    <div class="col-12 mb-2 mt-4 lg:mb-0 w-full">
+                        <h5>Fichiers</h5>
+                        <p-table #dt [value]="request?.deliverables?.attachements" responsiveLayout="scroll"
+                            [rowHover]="true" dataKey="id">
+                            <ng-template pTemplate="body" let-file let-index="rowIndex">
+                                <tr>
+                                    <td>
+                                        <span>
+                                            {{file.fileName | truncate : 45}}</span>
+                                    </td>
+                                    <td>
+                                        <button pButton pRipple icon="pi pi-trash" class="p-button-danger mr-2"
+                                            (click)="removeAttachements(index)"></button>
+                                        <a pButton [href]="getPath(file)" target="_blank" class="text-white" pRipple
+                                            icon="pi pi-arrow-circle-down"></a>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                        <div *ngIf="isAdmin">
+                            <h5>Importez des fichiers</h5>
+                            <p-fileUpload chooseLabel="Importer" cancelLabel="Réinitialiser" name="demo[]"
+                                uploadStyleClass="hidden" [multiple]="true" maxFileSize="1000000"
+                                (onSelect)="onUpload($event)" (onRemove)="onRemove($event)"
+                                [disabled]="loading"></p-fileUpload>
+
+                        </div>
+
+                        <div class="col-12 mb-2 mt-4 lg:mb-0 w-full">
+                            <h5>Liens</h5>
+                            <div *ngIf="isAdmin">
+                                <h5>Ajoutez des liens</h5>
+                                <p-toolbar styleClass="mb-4">
+                                    <ng-template pTemplate="left">
+                                        <div class="my-2 flex">
+                                            <button pButton pRipple label="Ajouter" icon="pi pi-plus"
+                                                class="p-button-primary mr-2 " (click)="openNewLink()"
+                                                [disabled]="loading"></button>
+                                            <button pButton pRipple label="Réinitialiser"
+                                                [disabled]="!request?.deliverables?.links?.length" icon="pi pi-times"
+                                                class="p-button-primary mr-2 pr-6" [disabled]="loading"></button>
+                                        </div>
+
+                                    </ng-template>
+                                </p-toolbar>
+                            </div>
+
+                            <p-table #dt [value]="request?.deliverables?.links" responsiveLayout="scroll"
+                                [rowHover]="true" dataKey="id">
+                                <ng-template pTemplate="body" let-link let-index="rowIndex">
+                                    <tr>
+                                        <td style="width: 40%;">
+                                            <a [href]="link" target="_blank" rel="noopener noreferrer "
+                                                class="truncate">
+                                                {{link | truncate : 60}}</a>
+                                        </td>
+                                        <td style="width: 20%;">
+                                            <button pButton pRipple icon="pi pi-times"
+                                                (click)="removeLink(index)"></button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
+
+                </div>
+                <div *ngIf="isAdmin && isUpdating" class="flex  justify-content-center my-6">
+                    <button pButton pRipple label="Enregistrer" class="max-w-10rem" icon="pi pi-save"
+                        (click)="updateRequest()" [loading]="loading"></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<div class="container" *ngIf="loading">
+    <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+            <p-skeleton height="1rem" width="20rem" class="w-full"></p-skeleton>
+        </ng-template>
+        <ng-template pTemplate="right">
+            <p-skeleton height="1rem" width="10rem" class="w-full"></p-skeleton>
+            <p-skeleton height="1rem" width="10rem" class="w-full"></p-skeleton>
+        </ng-template>
+    </p-toolbar>
+    <div class="grid p-fluid">
+        <p-toast></p-toast>
+        <div class="col-12 md:col-6">
+            <div class="card">
+                <p-skeleton height="1rem" width="100%" class="w-full mb-4"></p-skeleton>
+
+                <div class="flex justify-content-between mt-3 h-3rem">
+                    <p-skeleton height="90%" width="90%" class="w-full"></p-skeleton>
+                    <p-skeleton height="90%" width="90%" class="w-full"></p-skeleton>
+                </div>
+                <div class="flex justify-content-between mt-3 h-5rem">
+                    <p-skeleton height="90%" width="100%" class="w-full"></p-skeleton>
+                </div>
+                <div class="flex justify-content-between mt-3 h-3rem">
+                    <p-skeleton height="90%" width="90%" class="w-full"></p-skeleton>
+                    <p-skeleton height="90%" width="90%" class="w-full"></p-skeleton>
+                </div>
+                <div class="flex justify-content-between mt-3 h-5rem">
+                    <p-skeleton height="90%" width="100%" class="w-full"></p-skeleton>
+                </div>
+                <div class="flex justify-content-between mt-3 h-3rem">
+                    <p-skeleton height="90%" width="90%" class="w-full"></p-skeleton>
+                    <p-skeleton height="90%" width="90%" class="w-full"></p-skeleton>
+                </div>
+
+            </div>
+
+
+        </div>
+        <div class="col-12 md:col-6">
+            <div class="card">
+                <p-skeleton height="1rem" width="100%" class="w-full mb-4"></p-skeleton>
+
+                <div class="grid formgrid">
+
+                    <div class="col-12 mb-2 mt-4 lg:mb-0 w-full">
+                        <p-skeleton height="1rem" width="100%" class="w-full mb-4"></p-skeleton>
+                        <div class="flex justify-content-between mt-3 h-3rem">
+                            <p-skeleton height="100%" width="100%" class="w-full"></p-skeleton>
+                            <p-skeleton height="100%" width="3rem" class="w-full"></p-skeleton>
+                        </div>
+                        <div class="flex justify-content-between mt-3 h-3rem">
+                            <p-skeleton height="100%" width="100%" class="w-full"></p-skeleton>
+                            <p-skeleton height="100%" width="3rem" class="w-full"></p-skeleton>
+                        </div>
+                        <div class="flex justify-content-between mt-3 h-3rem">
+                            <p-skeleton height="100%" width="100%" class="w-full"></p-skeleton>
+                            <p-skeleton height="100%" width="3rem" class="w-full"></p-skeleton>
+                        </div>
+
+                        <div class="col-12 mb-2 mt-4 lg:mb-0 w-full">
+                            <p-skeleton height="1rem" width="100%" class="w-full"></p-skeleton>
+                            <p-skeleton height="100%" width="100%" class="w-full"></p-skeleton>
+                            <p-skeleton height="100%" width="100%" class="w-full"></p-skeleton>
+                            <p-skeleton height="100%" width="100%" class="w-full"></p-skeleton>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<p-dialog [(visible)]="viewDialog" header="Aperçu" [modal]="true" class="w-full h-full">
+    <ng-template pTemplate="content">
+        <ngx-doc-viewer [url]="getPath(file)" viewer="mammoth" style="width:100%;height:50vh;">
+        </ngx-doc-viewer>
+    </ng-template>
+</p-dialog>
+
+
+<p-dialog [(visible)]="statusDialog" [style]="{width: '450px'}" header="Confirmation de mise à jour" [modal]="true"
+    class="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field" *ngFor="let item of action.required">
+            <label for="{{item.name}}">{{item.label}}</label>
+            <input *ngIf="item.type === 'input' || !item.type" type="text" pInputText id="{{item.name}}"
+                name="{{item.name}}" autofocus (change)="onInputChange($event)" />
+            <textarea *ngIf="item.type === 'textarea'" pInputTextarea id="{{item.name}}" name="{{item.name}}" autofocus
+                (change)="onInputChange($event)">
+            </textarea>
+        </div>
+        <h6> {{this.action.confirm}} ?</h6>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Non" class="p-button-danger " (click)="statusDialog = false"></button>
+        <button pButton pRipple label="Oui" class="p-button-success" (click)="handaleUpdateStatus()"></button>
+    </ng-template>
+</p-dialog>
+<p-dialog [(visible)]="linkDialog" header="Nouveau lien" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="link">Lien</label>
+            <input type="text" pInputText id="link" [(ngModel)]="link" required autofocus
+                [ngClass]="{'ng-invalid ng-dirty' : linkSubmitted && !link}" />
+            <small class="ng-dirty ng-invalid" *ngIf="linkSubmitted && link">Renseignez le lien.</small>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Enregistrer" icon="pi pi-check" class="p-button-text"
+            (click)="addLink()"></button>
+    </ng-template>
+</p-dialog>

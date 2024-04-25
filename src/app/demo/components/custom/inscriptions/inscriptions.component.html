@@ -1,0 +1,83 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            <h2>Liste des inscriptions</h2>
+
+            <p-table #dt [value]="inscriptions" [columns]="cols" responsiveLayout="scroll" [rows]="10"
+                [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true"
+                [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="multiple"
+                [rowHover]="true" dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Rechercher"
+                                class="w-full sm:w-auto" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="fname">Nom<p-sortIcon field="fname"></p-sortIcon></th>
+                        <th pSortableColumn="lname">Prénom <p-sortIcon field="lname"></p-sortIcon></th>
+                        <th pSortableColumn="tel">Téléphone <p-sortIcon field="tel"></p-sortIcon></th>
+                        <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+                        <th pSortableColumn="level">Niveau <p-sortIcon field="level"></p-sortIcon></th>
+                        <th pSortableColumn="situation">Situation <p-sortIcon field="situation"></p-sortIcon></th>
+                        <th pSortableColumn="location">Lieu de formation <p-sortIcon field="location"></p-sortIcon></th>
+                        <th pSortableColumn="date">Date<p-sortIcon field="date"></p-sortIcon></th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-inscription>
+                    <tr *ngIf="!loading">
+                        <td style="width:15%; min-width:10rem;"><span class="p-column-title">Nom</span>
+                            {{inscription?.fname}}
+                        </td>
+                        <td style="width:20%; min-width:10rem;">
+                            <span class="p-column-title">Prénom</span>
+                            {{inscription?.lname}}
+                        </td>
+                        <td style="width:20%; min-width:10rem;">
+                            <span class="p-column-title">Téléphone</span>
+                            {{inscription?.tel}}
+                        </td>
+                        <td style="width:20%; min-width:10rem;">
+                            <span class="p-column-title">Email</span>
+                            {{inscription?.email}}
+                        </td>
+                        <td style="width:20%; min-width:10rem;">
+                            <span class="p-column-title">Niveau</span>
+                            {{inscription?.level}}
+                        </td>
+                        <td style="width:20%; min-width:10rem;">
+                            <span class="p-column-title">Situation</span>
+                            {{inscription?.situation}}
+                        </td>
+                        <td style="width:20%; min-width:10rem;">
+                            <span class="p-column-title">Lieu de formation</span>
+                            {{inscription?.location}}
+                        </td>
+                        <td style="width:20%; min-width:10rem;">
+                            <span class="p-column-title">Date</span>
+                            {{inscription?.dates?.created | date}}
+                        </td>
+                    </tr>
+                    <tr *ngIf="loading">
+                        <td style="width:15%; min-width:10rem;"><p-skeleton></p-skeleton></td>
+                        <td style="width:15%; min-width:10rem;"><p-skeleton></p-skeleton></td>
+                        <td style="width:15%; min-width:10rem;"><p-skeleton></p-skeleton></td>
+                        <td style="width:15%; min-width:10rem;"><p-skeleton></p-skeleton></td>
+                        <td style="width:15%; min-width:10rem;"><p-skeleton></p-skeleton></td>
+                        <td style="width:15%; min-width:10rem;"><p-skeleton></p-skeleton></td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+    
+
+    </div>
+</div>

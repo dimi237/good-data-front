@@ -1,0 +1,156 @@
+<p-toast></p-toast>
+
+<div class="formation-container">
+    <div class="hero pt-2">
+        <div class="header">
+            <img src="assets/layout/images/logo-white-2.png" alt="logo" class="w-10rem flex-shrink-0">
+        </div>
+        <div class="content w-full flex justify-content-between align-items-start">
+            <div class="w-6">
+                <h1>FORMATION DATA ANALYST</h1>
+                <p>Une <b>formation Data Analyst (Python, SQL, Tableau, ...) de 5 mois</b> pour les débutants, les
+                    amateurs de
+                    chiffres et les passionnés par l'analyse de données qui souhaitent construire leur avenir
+                    professionnel dans la tech.</p>
+                <p class="mb-8">
+
+                    Bénéficiez auprès de nos <b>formateurs expérimentés</b> et grâce à notre <b>pédagogie innovante</b>
+                    des meilleures
+                    conditions pour <b>réussir votre reconversion professionnelle dans les métiers de la tech !</b>
+                </p>
+
+                <ul class="illust">
+
+                    <li>Cursus de 5 mois</li>
+
+                    <li>Sur campus ou à distance</li>
+
+                    <li>Formation certifiante (équivalence Bac +3)</li>
+
+                    <li>Éligible financement CPF, Pôle Emploi, Transition Pro</li>
+
+                    <li>Candidature gratuite et sans engagement</li>
+
+                </ul>
+
+                <img style="margin: auto; margin-top: px"
+                    src="https://apply.wildcodeschool.com/hs-fs/hubfs/data-bootcamp 1.webp?width=470&amp;height=485&amp;name=data-bootcamp%201.webp"
+                    alt="data-bootcamp 1" loading="lazy" width="470" height="485"
+                    srcset="https://apply.wildcodeschool.com/hs-fs/hubfs/data-bootcamp%201.webp?width=235&amp;height=243&amp;name=data-bootcamp%201.webp 235w, https://apply.wildcodeschool.com/hs-fs/hubfs/data-bootcamp%201.webp?width=470&amp;height=485&amp;name=data-bootcamp%201.webp 470w, https://apply.wildcodeschool.com/hs-fs/hubfs/data-bootcamp%201.webp?width=705&amp;height=728&amp;name=data-bootcamp%201.webp 705w, https://apply.wildcodeschool.com/hs-fs/hubfs/data-bootcamp%201.webp?width=940&amp;height=970&amp;name=data-bootcamp%201.webp 940w, https://apply.wildcodeschool.com/hs-fs/hubfs/data-bootcamp%201.webp?width=1175&amp;height=1213&amp;name=data-bootcamp%201.webp 1175w, https://apply.wildcodeschool.com/hs-fs/hubfs/data-bootcamp%201.webp?width=1410&amp;height=1455&amp;name=data-bootcamp%201.webp 1410w"
+                    sizes="(max-width: 470px) 100vw, 470px">
+            </div>
+            <div class="w-6 flex justify-content-end align-items-start">
+                <div class="form-container">
+                    <h1>SUIVRE CETTE FORMATION</h1>
+                    <div class="form-list__nbr-wrapper flex justify-content-between">
+
+                        <div class="form-list__nbr-wrapper__item flex flex-column align-items-center ">
+                            <h3><em>4,9</em>/5</h3>
+                            <p>Satisfactionde nos élèves</p>
+                        </div>
+
+                        <div class="form-list__nbr-wrapper__item flex flex-column align-items-center">
+                            <h3><em>81</em>%</h3>
+                            <p>Taux de retourà l’emploi</p>
+                        </div>
+
+                        <div class="form-list__nbr-wrapper__item flex flex-column align-items-center">
+                            <h3><em>94</em>%</h3>
+                            <p>Réussite des certifications</p>
+                        </div>
+
+                    </div>
+
+                    <div class="">
+                        <h5>Advanced</h5>
+                        <div class="p-fluid p-formgrid grid">
+                            <div class="field col-12 md:col-6">
+                                <label htmlFor="lname">Votre Nom*</label>
+                                <input pInputText id="lname" type="text" [(ngModel)]="inscription.lname" />
+                                <span *ngIf="submitted &&  !inscription.lname" class="text-white text-lg">Veuillez
+                                    remplir ce champ obligatoire</span>
+                            </div>
+                            <div class="field col-12 md:col-6">
+                                <label htmlFor="fname">Votre Prénom*</label>
+                                <input pInputText id="fname" [(ngModel)]="inscription.fname" type="text" />
+                                <span *ngIf="submitted &&  !inscription.fname" class="text-white text-lg">Veuillez
+                                    remplir ce champ obligatoire</span>
+                            </div>
+                            <div class="field col-12">
+                                <label htmlFor="email">Votre e-mail*</label>
+                                <input pInputText id="email" rows="4" [(ngModel)]="inscription.email" />
+                                <span *ngIf="submitted &&  !inscription.email" class="text-white text-lg">Veuillez
+                                    remplir ce champ obligatoire</span>
+                            </div>
+                            <div class="field col-12">
+                                <label htmlFor="tel">Votre numéro de téléphone*</label>
+                                <input pInputText id="tel" type="text" [(ngModel)]="inscription.tel" />
+                                <span *ngIf="submitted &&  !inscription.tel" class="text-white text-lg">Veuillez
+                                    remplir ce champ obligatoire</span>
+                            </div>
+                            <div class="field col-12 md:col-6">
+                                <label htmlFor="level">Votre niveau de formation : *</label>
+                                <p-dropdown id="level" [options]="levels" [(ngModel)]="inscription.level"></p-dropdown>
+                                <span *ngIf="submitted &&  !inscription.level" class="text-white text-lg">Veuillez
+                                    remplir ce champ obligatoire</span>
+                            </div>
+                            <div class="field col-12 md:col-6">
+                                <label htmlFor="situation">Votre situation : *</label>
+                                <p-dropdown id="situation" [options]="situations"
+                                    [(ngModel)]="inscription.situation"></p-dropdown>
+                                    <span *ngIf="submitted &&  !inscription.situation" class="text-white text-lg">Veuillez
+                                        remplir ce champ obligatoire</span>
+
+                            </div>
+                            <div class="field col-12">
+                                <label htmlFor="location">Comment souhaiteriez-vous suivre votre formation ?*</label>
+                                <input pInputText id="location" type="text" [(ngModel)]="inscription.location" />
+                                <span *ngIf="submitted &&  !inscription.location" class="text-white text-lg">Veuillez
+                                    remplir ce champ obligatoire</span>
+                            </div>
+                            <div class="w-full flex justify-content-center">
+                                <button label="Primary" (click)="saveInscription()">Je souhaite suivre cette formation</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="programs-container">
+        <div class="content w-full flex flex-column justify-content-between align-items-center">
+
+            <h1>NOTRE <span>PROGRAMME </span>DE FORMATION </h1>
+            <b class="mb-4">À distance ou sur campus, formez-vous à un métier tech passionnant ! </b>
+            <p class="mb-8 text-center">Grâce à notre <b>pédagogie par la pratique </b> et au <b>coaching de nos
+                    formateurs experts
+                    et
+                    passionnés,</b> vous montez
+                rapidement en compétences sur des problématiques concrètes. Vous bénéficierez aussi de notre plateforme
+                de
+                cours en ligne et d’un accès à son contenu à vie pour progresser même une fois votre formation terminée
+                !
+            </p>
+
+            <ul class="tc semantic-list w-full ">
+                <li class="tc__item" *ngFor="let item of programs">
+                    <p class="tc__title h3">{{item.label}}</p>
+                    <div class="tc__text">
+                        <p><span>{{item.description}}</span></p>
+                    </div>
+
+                </li>
+            </ul>
+
+        </div>
+    </div>
+    <footer class="footer-no-navigation">
+        <a class="footer-logo-link hs-skip-lang-url-rewrite" href="/">
+            <img src="assets/layout/images/logo.png" alt="logo" class="w-8rem flex-shrink-0">
+        </a>
+        <div class="footer-no-navigation__copyrights">
+            <p><span>Douala, Cameroun</span> © Dimitri signe. Tous droits réservés • </p>
+        </div>
+    </footer>
+</div>

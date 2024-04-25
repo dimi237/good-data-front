@@ -1,0 +1,176 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            <h2>Liste des administrateurs</h2>
+
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <button pButton pRipple label="Ajouter un administrateur" icon="pi pi-plus"
+                            class="p-button-success mr-2" (click)="openNew()" [disabled]="loading"></button>
+
+                    </div>
+                </ng-template>
+            </p-toolbar>
+
+            <p-table #dt [value]="users" [columns]="cols" responsiveLayout="scroll" [rows]="10"
+                [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true"
+                [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="multiple"
+                [rowHover]="true" dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Rechercher"
+                                class="w-full sm:w-auto" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="code">Nom d'utilisateur <p-sortIcon field="code"></p-sortIcon></th>
+                        <th pSortableColumn="lname">Nom <p-sortIcon field="name"></p-sortIcon></th>
+                        <th pSortableColumn="fname">Prénom <p-sortIcon field="name"></p-sortIcon></th>
+                        <th pSortableColumn="email">Adresse email <p-sortIcon field="email"></p-sortIcon></th>
+                        <th pSortableColumn="date">Date de création <p-sortIcon field="date"></p-sortIcon></th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-user>
+                    <tr *ngIf="!loading">
+                        <td style="width:15%; min-width:10rem;"><span class="p-column-title">Nom d'utilisateur</span>
+                            {{user?.username}}
+                        </td>
+                        <td style="width:20%; min-width:10rem;">
+                            <span class="p-column-title">Nom</span>
+                            {{user?.fname}}
+                        </td>
+
+                        <td style="width:20%; min-width:10rem;">
+                            <span class="p-column-title">Prénom</span>
+                            {{user?.lname}}
+                        </td>
+                        <td style="width:20%; min-width:8rem;">
+                            <span class="p-column-title">Adresse email</span>
+                            {{user?.email}}
+                        </td>
+                        <td style="width:20%; min-width:10rem;">
+                            <span class="p-column-title">Date de création</span>
+                            {{user?.dates?.created | date}}
+                        </td>
+                        <td>
+                            <div class="flex">
+
+                                <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-warning mr-2" (click)="editUser(user)"></button>
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                                    (click)="deleteUser(user)"></button>
+                                <button pButton pRipple icon="pi pi-file" class="p-button-rounded p-button-blue ml-2"
+                                    (click)="detailUser(user)"></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr *ngIf="loading">
+                        <td style="width:15%; min-width:10rem;"><p-skeleton></p-skeleton></td>
+                        <td style="width:15%; min-width:10rem;"><p-skeleton></p-skeleton></td>
+                        <td style="width:15%; min-width:10rem;"><p-skeleton></p-skeleton></td>
+                        <td style="width:15%; min-width:10rem;"><p-skeleton></p-skeleton></td>
+                        <td style="width:15%; min-width:10rem;"><p-skeleton></p-skeleton></td>
+                        <td style="width:15%; min-width:10rem;"><p-skeleton></p-skeleton></td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <p-dialog [(visible)]="userDialog" [style]="{width: '450px'}"
+            header="{{user._id ? 'Edition': 'Ajout'}} d'un administrateur" [modal]="true" class="p-fluid">
+            <ng-template pTemplate="content">
+
+                <div class="field">
+                    <label for="username">Nom d'utilisateur </label>
+                    <input type="text" pInputText id="username" [(ngModel)]="user.username" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !user.username}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !user.username">Nom d'utilisateur
+                        requis.</small>
+                </div>
+                <div class="field">
+                    <label for="fname">Nom</label>
+                    <input type="text" pInputText id="fname" [(ngModel)]="user.fname" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !user.fname}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !user.fname">Nom requis.</small>
+                </div>
+                <div class="field">
+                    <label for="lname">Prénom </label>
+                    <input type="text" pInputText id="lname" [(ngModel)]="user.lname" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !user.lname}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !user.lname">Prénom requis.</small>
+                </div>
+                <div class="field">
+                    <label for="email">Adresse email</label>
+                    <input type="text" pInputText id="email" [(ngModel)]="user.email" required autofocus
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !user.email}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !user.email">Adresse email requis.</small>
+                    <small class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !authService.validateEmail(this.user.email)">Adresse email non
+                        conforme.</small>
+                </div>
+            </ng-template>
+
+            <ng-template pTemplate="footer">
+                <button pButton pRipple label="Fermer" icon="pi pi-times" class="p-button-text"
+                    (click)="hideDialog()"></button>
+                <button pButton pRipple label="Enregistrer" icon="pi pi-check" class="p-button-text"
+                    (click)="saveUser()"></button>
+            </ng-template>
+        </p-dialog>
+
+
+        <p-dialog [(visible)]="userDetailDialog" [style]="{width: '450px'}" header="Hitorique de connexion"
+            [modal]="true" class="p-fluid">
+            <ng-template pTemplate="content">
+                <p-orderList [value]="user.connectionHistory">
+                    <ng-template let-data pTemplate="item">
+                        <div class="flex flex-wrap p-2 align-items-center gap-3">
+                            <div class="flex-1 flex flex-column gap-2">
+                                <div class="flex align-items-center gap-2">
+                                    <i class="pi pi-calendar text-sm"></i>
+                                    <span class="font-bold">{{ data.date | date: 'dd/MM/YYYY à HH:mm':'fr' || '-'
+                                        }}</span>
+                                </div>
+                                <div class="flex align-items-center gap-2">
+                                    <i class="pi pi-map-marker text-sm"></i>
+                                    <span>{{ data.location || '-' }}</span>
+                                </div>
+                                <div class="flex align-items-center gap-2">
+                                    <i class="pi pi-wrench text-sm"></i>
+                                    <span>{{ data.ip || '-' }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-orderList>
+            </ng-template>
+
+            <ng-template pTemplate="footer">
+                <button pButton pRipple label="Fermer" icon="pi pi-times" class="p-button-text"
+                    (click)="userDetailDialog = false"></button>
+            </ng-template>
+        </p-dialog>
+
+        <p-dialog [(visible)]="deleteUserDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span *ngIf="user">Etes vous sûr de supprimer l'utilisateur <b>{{user?.username}}</b>?</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="Non"
+                    (click)="deleteUserDialog = false"></button>
+                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Oui"
+                    (click)="confirmDelete()"></button>
+            </ng-template>
+        </p-dialog>
+
+    </div>
+</div>

@@ -17,7 +17,9 @@ import { AppFooterComponent } from './app.footer.component';
 import { AppConfigModule } from './config/config.module';
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppLayoutComponent } from "./app.layout.component";
-
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { MenuModule } from 'primeng/menu';
 @NgModule({
     declarations: [
         AppMenuitemComponent,
@@ -39,6 +41,9 @@ import { AppLayoutComponent } from "./app.layout.component";
         InputSwitchModule,
         RippleModule,
         RouterModule,
+        AvatarModule,
+        AvatarGroupModule,
+        MenuModule,
         AppConfigModule
     ],
     exports: [AppLayoutComponent]

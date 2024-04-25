@@ -11,10 +11,17 @@ import { EventService } from './demo/service/event.service';
 import { IconService } from './demo/service/icon.service';
 import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
+import { httpInterceptorProviders } from './interceptors';
+import { StorageService } from './demo/service/storage.service';
+import { AuthService } from './demo/service/auth.service';
+import { BaseUrlService } from './demo/service/base-url.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
-    imports: [AppRoutingModule, AppLayoutModule],
+    imports: [AppRoutingModule, AppLayoutModule, ToastModule, NgxDocViewerModule],
     providers: [
         { provide: LocationStrategy, useClass: PathLocationStrategy },
         CountryService,
@@ -24,7 +31,12 @@ import { PhotoService } from './demo/service/photo.service';
         NodeService,
         PhotoService,
         ProductService,
+        StorageService,
+        AuthService,
+        BaseUrlService,
+        MessageService,
+        httpInterceptorProviders,
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

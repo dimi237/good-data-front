@@ -1,0 +1,114 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            <h2>Liste des demandes d'analyses </h2>
+            <p-table #dt [value]="requests" [columns]="cols" responsiveLayout="scroll" [rows]="10"
+                [globalFilterFields]="['name','code','type','field', 'status']" [paginator]="true"
+                [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="multiple"
+                [rowHover]="true" dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Rechercher"
+                                class="w-full sm:w-auto" />
+                        </span>
+
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
+                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                    <p-dropdown [ngModel]="selectedStatus" [options]="requestService.statuslist"
+                                        (onChange)="filter($event.value.label)" placeholder="Aucun filtre"
+                                        id="statusFilter" name="statusFilter" [showClear]="true">
+                                    </p-dropdown>
+                                </ng-template>
+                            </p-columnFilter>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="code">Code<p-sortIcon field="code"></p-sortIcon></th>
+                        <th pSortableColumn="name">Titre<p-sortIcon field="name"></p-sortIcon></th>
+                        <th pSortableColumn="type">Type d'analyse <p-sortIcon field="type"></p-sortIcon></th>
+                        <th pSortableColumn="field">Domaine d'étude <p-sortIcon field="field"></p-sortIcon></th>
+                        <th pSortableColumn="requester" *ngIf="isAdmin">Demandeur <p-sortIcon
+                                field="requester"></p-sortIcon></th>
+                        <th pSortableColumn="tel" *ngIf="isAdmin">Téléphone <p-sortIcon
+                                field="tel"></p-sortIcon></th>
+                        <th pSortableColumn="email" *ngIf="isAdmin">Email <p-sortIcon
+                                field="email"></p-sortIcon></th>
+                        <th pSortableColumn="date">Date limite <p-sortIcon field="date"></p-sortIcon></th>
+                        <th pSortableColumn="date">Date de création <p-sortIcon field="date"></p-sortIcon></th>
+                        <th pSortableColumn="status">Statut <p-sortIcon field="status"></p-sortIcon></th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-request>
+                    <tr *ngIf="!loading">
+                        <td style="width:15%; min-width:10rem;"><span class="p-column-title">Code</span>
+                            {{request?.code}}
+                        </td>
+                        <td style="width:15%; min-width:10rem;"><span class="p-column-title">Titre</span>
+                            {{request?.name}}
+                        </td>
+                        <td style="width:20%; min-width:10rem;">
+                            <span class="p-column-title">Type d'analyse</span>
+                            {{request?.type}}
+                        </td>
+                        <td style="width:20%; min-width:8rem;">
+                            <span class="p-column-title">Domaine d'étude</span>
+                            {{request?.field}}
+                        </td>
+                        <td style="width:20%; min-width:8rem;" *ngIf="isAdmin">
+                            <span class="p-column-title">Demandeur</span>
+                            {{request?.user?.fullName}}
+                        </td>
+                        <td style="width:20%; min-width:8rem;" *ngIf="isAdmin">
+                            <span class="p-column-title">Téléphone</span>
+                            {{request?.user?.tel}}
+                        </td>
+                        <td style="width:20%; min-width:8rem;" *ngIf="isAdmin">
+                            <span class="p-column-title">Email</span>
+                            {{request?.user?.email}}
+                        </td>
+                        <td style="width:20%; min-width:10rem;">
+                            <span class="p-column-title">Date limite</span>
+                            {{request?.delay | date:'dd/MM/YYYY'}}
+                        </td>
+                        <td style="width:20%; min-width:10rem;">
+                            <span class="p-column-title">Date de création</span>
+                            {{request?.dates?.created | date:'dd/MM/YYYY'}}
+                        </td>
+
+                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Status</span>
+                            <span
+                                class="text-blqck w-6rem text-center font-bold p-2 border-round bg-{{requestService.statusTable[request.status|| 100].color}}-300">{{requestService.statusTable[request.status||
+                                100].label }}</span>
+                        </td>
+                        <td style="width:14%; min-width: 10rem;">
+                            <div class="flex">
+                                <button pButton pRipple icon="pi pi-file" class="p-button-rounded p-button-blue ml-2"
+                                    (click)="detailRequest(request)"></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr *ngIf="loading">
+                        <td style="width:15%; min-width:10rem;"><p-skeleton></p-skeleton></td>
+                        <td style="width:15%; min-width:10rem;"><p-skeleton></p-skeleton></td>
+                        <td style="width:15%; min-width:10rem;"><p-skeleton></p-skeleton></td>
+                        <td style="width:15%; min-width:10rem;"><p-skeleton></p-skeleton></td>
+                        <td style="width:15%; min-width:10rem;"><p-skeleton></p-skeleton></td>
+                        <td style="width:15%; min-width:10rem;"><p-skeleton></p-skeleton></td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+
+
+    </div>
+</div>

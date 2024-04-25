@@ -1,0 +1,11 @@
+<p-tabMenu [scrollable]="true" [model]="products" [activeItem]="activeItem"
+    (activeItemChange)="activeItemChange($event)"></p-tabMenu>
+
+<div>
+    <div class="w-full flex justify-content-center mb-4 flex-column align-items-center mt-4">
+        <img src="assets/images/logo/{{ product?.slug }}.png" [alt]="product?.slug" class="w-10rem h-auto" />
+        <h5 class="mt-4 text-center w-8">{{product?.description}}</h5>
+        <h4 class="text-primary">{{product?.value}}</h4>
+        <h4 class="mt-4">Montant à payer <span>{{requestsService?.data?.amount}} XAF</span></h4>
+    </div>
+</div>

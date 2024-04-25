@@ -215,7 +215,7 @@
 						<td><img [src]="'assets/demo/images/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
 						<td style="min-width: 8rem;">{{product.price | currency:'USD'}}</td>
 						<td style="min-width: 10rem;">{{product.category}}</td>
-						<td style="min-width: 10rem;"><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
+						<td style="min-width: 10rem;"><p-rating [ngModel]="product.rating" [readonly]="true" [Fermer]="false"></p-rating></td>
 						<td><span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span></td>
 					</tr>
 				</ng-template>

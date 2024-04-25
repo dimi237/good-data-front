@@ -1,0 +1,202 @@
+.formation-container {
+    .hero {
+        background-color: rgba(37, 103, 239, 1) !important;
+        padding-left: 12rem;
+        padding-right: 12rem;
+        background-image: url(/assets/layout/images/header-lp-bg-15.svg) !important;
+        background-size: auto !important;
+        background-position: right top !important;
+        background-repeat: no-repeat !important;
+
+        .content {
+            h1 {
+                color: #1D1D1D;
+                font-size: 52px;
+                text-transform: uppercase;
+                font-weight: bolder;
+
+            }
+
+            p {
+                color: #fff;
+                font-size: 16px;
+            }
+
+            ul.illust {
+                color: #fff;
+                margin-block-start: unset !important;
+                margin-block-end: unset !important;
+                margin-inline-start: unset !important;
+                margin-inline-end: unset !important;
+                padding-inline-start: unset !important;
+
+                li {
+                    align-items: center;
+                    display: flex;
+                    font-size: 20px;
+                    font-weight: 700;
+                    min-height: 31px;
+                    padding-left: 4.8rem;
+                    position: relative;
+                    margin-bottom: 0.8rem;
+                }
+
+                li:after {
+                    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='31' height='31' fill='none'%3E%3Ccircle cx='15.5' cy='15.5' r='15.5' fill='%231D1D1B'/%3E%3Cpath stroke='%23fff' stroke-width='3' d='m9.217 14.383 5.247 4.887 7.32-8.378'/%3E%3C/svg%3E");
+                    bottom: 0;
+                    content: "";
+                    height: 31px;
+                    left: 0;
+                    position: absolute;
+                    top: 0;
+                    width: 31px;
+                }
+            }
+
+            .form-container {
+                flex: 0 0 auto;
+                width: 550px;
+                background-color: #000;
+                border-radius: 8px;
+                padding: 4rem;
+
+                h1 {
+                    color: #fff;
+                    margin-bottom: 2.4rem;
+                    text-align: center;
+                    font-size: 32px;
+                }
+
+                .form-list__nbr-wrapper__item {
+                    h3 {
+                        align-items: flex-end;
+                        background-color: #282826;
+                        border-radius: 50px;
+                        color: #fff;
+                        display: flex;
+                        font-size: 1rem;
+                        padding: 4px 12px;
+                        width: fit-content;
+
+                        em {
+                            color: #F71468;
+                            font-size: 1.5em;
+                            font-style: normal;
+                            font-weight: bold;
+                        }
+                    }
+
+                    p {
+                        color: #fff;
+                        font-size: 0.8rem;
+                        text-align: center;
+                    }
+
+                }
+
+                label {
+                    color: #fff;
+                    font-weight: bold;
+                    font-size: 15px;
+                }
+
+                .p-dropdown,
+                input {
+                    min-height: 3.6rem;
+                }
+
+                button {
+                    appearance: none;
+                    background-color: rgba(247, 20, 107, 1.0);
+                    border: 0;
+                    border-radius: 50px;
+                    box-shadow: inset 0 0 0 2px rgba(247, 20, 107, 1);
+                    color: #fff;
+                    cursor: pointer;
+                    display: inline-block;
+                    font-size: 16px;
+                    font-weight: 900;
+                    padding: 16px 24px 16px 24px;
+                    text-align: center;
+                    transition: filter 0.3s ease-in-out, background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+                    white-space: normal;
+                }
+
+                button:hover {
+                    background-color: rgba(247, 20, 107, 1.0);
+                    box-shadow: inset 0 0 0 2px rgba(247, 20, 107, 1);
+                }
+            }
+        }
+
+    }
+
+    .programs-container {
+        padding-top: 7rem !important;
+        padding-bottom: 80px;
+        padding-left: 12rem;
+        padding-right: 12rem;
+        background-image: url(/assets/layout/images/programme-bg.svg) !important;
+        background-size: auto !important;
+        background-position: center top !important;
+        background-repeat: no-repeat !important;
+
+        h1 {
+            font-size: 32px;
+            font-weight: bolder;
+            margin-bottom: 1rem;
+
+            span {
+                color: #f7146b;
+            }
+        }
+
+        b,
+        p {
+            font-size: 16px;
+        }
+
+        .tc {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .tc__item {
+            background-color: #1D1D1B;
+            background-image: url(https://2902314.fs1.hubspotusercontent-na1.net/hubfs/2902314/markentive/images/tech_background_shape.webp);
+            background-position: 100% 0;
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: 8px;
+            color: #fff;
+            width: 45%;
+            padding: 2rem;
+
+            .h3 {
+                font-weight: 900;
+                font-size: 20px
+            }
+
+            .tc__text {
+                color: rgba(255, 255, 255, 0.7);
+
+            }
+        }
+    }
+
+    .footer-no-navigation {
+        align-items: center;
+        border-top: 1px solid rgba(29, 29, 27, .3);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-top: 3rem;
+
+        p {
+            margin-bottom: 3rem;
+            padding: 0 3rem;
+            font-size: 1rem;
+        }
+    }
+}

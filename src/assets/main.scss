@@ -1,0 +1,42 @@
+.p-fileupload-filename {
+    width: 30% !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.p-fileupload .p-fileupload-row>div {
+    flex: none !important;
+    width: 25%;
+
+}
+
+.p-fileupload-row .p-button {
+    width: 80% !important;
+}
+
+.truncate {
+    display: flex !important;
+    width: 25rem !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+
+textarea[readonly],
+input[readonly] {
+    font-weight: bold !important;
+}
+
+.p-fieldset .p-fieldset-content,
+.p-fieldset .p-fieldset-legend {
+    background: none !important;
+    padding: unset !important;
+}
+.p-fieldset{
+    padding: unset !important;
+}
+.p-fieldset .p-toolbar {
+    background: none !important;
+}

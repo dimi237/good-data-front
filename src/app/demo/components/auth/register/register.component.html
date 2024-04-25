@@ -1,0 +1,77 @@
+<p-toast></p-toast>
+<div
+    class="py-4 px-4 mx-0 md:mx-6 lg:mx-8 lg:px-8 flex align-items-center justify-content-between relative lg:static mb-3">
+    <a class="flex align-items-center" href="/landing">
+        <img src="assets/layout/images/logo.png" alt="  Logo" height="100" class="mr-0 lg:mr-2"><span
+            class="text-900 font-medium text-2xl line-height-3 mr-8"> </span>
+    </a>
+    <h2>Inscription</h2>
+
+    <a pRipple class="cursor-pointer block lg:hidden text-700" pStyleClass="@next" enterClass="hidden"
+        leaveToClass="hidden">
+        <i class="pi pi-bars text-4xl"></i>
+    </a>
+
+</div>
+<div class="w-100 flex align-items-center justify-content-center">
+    <div class="col-10 ">
+        <div class="card">
+            <h5>Informations personnelles</h5>
+            <div class="p-fluid p-formgrid grid">
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="fname">Nom</label>
+                    <input [disabled]="isLoading" pInputText id="fname" type="text" [(ngModel)]="user.fname" />
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="lname">Prénom</label>
+                    <input [disabled]="isLoading" pInputText id="lname" type="text" [(ngModel)]="user.lname" />
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="email">Addresse Email</label>
+                    <input [disabled]="isLoading" pInputTextarea id="email" type="email" rows="4"
+                        [(ngModel)]="user.email" />
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="username">Nom d'Utilisateur</label>
+                    <input [disabled]="isLoading" pInputText id="username" type="text" [(ngModel)]="user.username" />
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="username">Numéro de téléphone</label>
+                    <input [disabled]="isLoading" pInputText id="tel" type="text" [(ngModel)]="user.tel" />
+                </div>
+            </div>
+            <h5>Informations professionelles</h5>
+            <div class="p-fluid p-formgrid grid">
+
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="profession">Profession</label>
+                    <p-dropdown [disabled]="isLoading" [options]="dropdownItems"
+                        [(ngModel)]="user.profile.profession"></p-dropdown>
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="domain">Domaine</label>
+                    <input [disabled]="isLoading" pInputText id="field" type="text" [(ngModel)]="user.profile.field" />
+                </div>
+            </div>
+
+            <h5>Informations de connexion</h5>
+            <div class="p-fluid p-formgrid grid">
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="password">Mot de passe</label>
+                    <p-password [(ngModel)]="user.password" [toggleMask]="true"></p-password>
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="confimpassword">Confirmer mot de passe</label>
+                    <p-password [(ngModel)]="password" [toggleMask]="true"></p-password>
+                </div>
+            </div>
+            <button pButton pRipple [disabled]="isLoading || validate()" label="S'inscrire" (click)="register()"
+                class="p-button-success" type="button">
+                <p-progressSpinner *ngIf="isLoading" styleClass="w-1rem h-1rem"
+                    animationDuration=".5s"></p-progressSpinner>
+            </button>
+
+
+        </div>
+    </div>
+</div>

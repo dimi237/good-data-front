@@ -1,0 +1,119 @@
+<div class="grid p-fluid">
+    <p-toast></p-toast>
+    <div class="col-12 md:col-6">
+        <div class="card">
+            <h5 class="mb-4">Informations sur la demande d'analyse </h5>
+            <div class="grid formgrid">
+                <div class="col-12 mb-2 mt-4 lg:mb-0">
+                    <label for="name" class="block text-900 font-medium mb-2">Titre de votre requête *</label>
+                    <input type="text" [(ngModel)]="request.name" id="name" name="name" pInputText
+                        placeholder="Titre de votre requête" [disabled]="loading">
+                    <small class="ng-dirty ng-invalid text-red-600" *ngIf="submitted && !request.name">Renseignez le
+                        nom.</small>
+
+                </div>
+
+
+                <div class="col-12 mb-2 mt-4 lg:mb-0">
+                    <label for="desc" class="block text-900 font-medium mb-2">Description *</label>
+                    <textarea rows="5" cols="30" id="desc" [(ngModel)]="request.desc" name="desc"
+                        placeholder="Description" pInputTextarea [disabled]="loading"></textarea>
+                    <small class="ng-dirty ng-invalid text-red-600" *ngIf="submitted && !request.desc">Renseignez la
+                        description.</small>
+
+                </div>
+
+                <div class="col-12 mb-2 mt-4 lg:mb-0">
+                    <label for="type" class="block text-900 font-medium mb-2">Type d'analyse *</label>
+                    <input type="text" [(ngModel)]="request.type" id="type" name="type" pInputText
+                        placeholder="Ex: Statistiques, Data Mining, Visualisation..." [disabled]="loading">
+                    <small class="ng-dirty ng-invalid text-red-600" *ngIf="submitted && !request.type">Renseignez le
+                        type    
+                        d'analyse.</small>
+
+                </div>
+                <div class="col-12 mb-2 mt-4 lg:mb-0">
+                    <label for="field" class="block text-900 font-medium mb-2">Domaine d'étude </label>
+                    <input type="text" [(ngModel)]="request.field" id="field" name="field" pInputText
+                        placeholder="Ex: Ingénieurie, Médécine..." [disabled]="loading">
+                </div>
+                <div class="col-12 mb-2 mt-4 lg:mb-0">
+                    <label for="preferences" class="block text-900 font-medium mb-2">Préférences</label>
+                    <textarea rows="5" cols="30" id="preferences" [(ngModel)]="request.preferences" name="preferences"
+                        placeholder="Préférences" pInputTextarea [disabled]="loading"></textarea>
+                </div>
+                <div class="col-12 mb-2 mt-4 lg:mb-0">
+                    <label for="preferences" class="block text-900 font-medium mb-2">Date limite</label>
+                    <p-calendar [showIcon]="true" id="delay" name="delay" inputId="icon" [(ngModel)]="date"
+                        [minDate]="minDate" [disabled]="loading"></p-calendar>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 md:col-6">
+        <div class="card">
+            <h5 class="mb-4">Pièces jointes</h5>
+
+            <div class="grid formgrid">
+
+                <div class="col-12 mb-2 mt-4 lg:mb-0 w-full">
+                    <h5>Importez des fichiers</h5>
+                    <p-fileUpload chooseLabel="Importer" cancelLabel="Réinitialiser" name="demo[]"
+                        uploadStyleClass="hidden" [multiple]="true" maxFileSize="1000000" (onSelect)="onUpload($event)"
+                        (onRemove)="onRemove($event)" [disabled]="loading"></p-fileUpload>
+
+                    <div class="col-12 mb-2 mt-4 lg:mb-0 w-full">
+                        <h5>Ajoutez des liens</h5>
+                        <p-toolbar styleClass="mb-4">
+                            <ng-template pTemplate="left">
+                                <div class="my-2 flex">
+                                    <button pButton pRipple label="Ajouter" icon="pi pi-plus"
+                                        class="p-button-primary mr-2 " (click)="openNewLink()"
+                                        [disabled]="loading"></button>
+                                    <button pButton pRipple label="Réinitialiser" [disabled]="!links.length"
+                                        icon="pi pi-times" class="p-button-primary mr-2 pr-6"
+                                        [disabled]="loading"></button>
+                                </div>
+
+                            </ng-template>
+                        </p-toolbar>
+                        <p-table #dt [value]="links" responsiveLayout="scroll" [rowHover]="true" dataKey="id">
+                            <ng-template pTemplate="body" let-link let-index="rowIndex">
+                                <tr>
+                                    <td style="width: 40%;">
+                                        <a [href]="link" target="_blank" rel="noopener noreferrer " class="truncate">
+                                            {{link}}</a>
+                                    </td>
+                                    <td style="width: 20%;">
+                                        <button pButton pRipple icon="pi pi-times" (click)="removeLink(index)"></button>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="flex w-full justify-content-center my-6">
+    <button pButton pRipple label="Enregistrer" icon="pi pi-save" [disabled]="!this.validate()" (click)="saveRequest()" [loading]="loading"></button>
+</div>
+
+
+<p-dialog [(visible)]="linkDialog" header="Nouveau lien" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="link">Lien</label>
+            <input type="text" pInputText id="link" [(ngModel)]="link" required autofocus
+                [ngClass]="{'ng-invalid ng-dirty' : linkSubmitted && !link}" />
+            <small class="ng-dirty ng-invalid" *ngIf="linkSubmitted && link">Renseignez le lien.</small>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Enregistrer" icon="pi pi-check" class="p-button-text"
+            (click)="addLink()"></button>
+    </ng-template>
+</p-dialog>

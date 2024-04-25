@@ -48,7 +48,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [
                 {
-                    label: 'First Dataset',
+                    label: 'En cours',
                     data: [65, 59, 80, 81, 56, 55, 40],
                     fill: false,
                     backgroundColor: documentStyle.getPropertyValue('--bluegray-700'),
@@ -56,11 +56,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
                     tension: .4
                 },
                 {
-                    label: 'Second Dataset',
+                    label: 'Terminées',
                     data: [28, 48, 40, 19, 86, 27, 90],
                     fill: false,
                     backgroundColor: documentStyle.getPropertyValue('--green-600'),
                     borderColor: documentStyle.getPropertyValue('--green-600'),
+                    tension: .4
+                },
+                {
+                    label: 'Annulées',
+                    data: [15, 45, 30, 59, 82, 47, 24],
+                    fill: false,
+                    backgroundColor: documentStyle.getPropertyValue('--red-600'),
+                    borderColor: documentStyle.getPropertyValue('--red-600'),
                     tension: .4
                 }
             ]
