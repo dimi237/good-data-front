@@ -33,7 +33,6 @@ export class FormComponent implements OnInit {
     email: '',
     level: '',
     situation: '',
-    location: '',
   };
 
   levels = [
@@ -67,12 +66,10 @@ export class FormComponent implements OnInit {
   getPrograms() {
     this.programSrv.findAll().then((data) => {
       this.programs = data?.data;
-      console.log(this.programs);
-
     });
   }
   validate(): boolean {
-    return (this.inscription.tel && this.inscription.lname && this.inscription.fname && this.inscription.email && this.inscription.level && this.inscription.situation && this.inscription.location) && (this.authService.validateEmail(this.inscription.email));
+    return (this.inscription.tel && this.inscription.lname && this.inscription.fname && this.inscription.email && this.inscription.level && this.inscription.situation) && (this.authService.validateEmail(this.inscription.email));
   }
   async saveInscription() {
     try {
@@ -89,7 +86,6 @@ export class FormComponent implements OnInit {
         email: '',
         level: '',
         situation: '',
-        location: '',
       };
       this.messageService.add({ severity: 'success', summary: 'Opération réussie', detail: 'Inscription Effectué', life: 3000 })
     } catch (error) {
@@ -97,8 +93,6 @@ export class FormComponent implements OnInit {
     } finally {
       this.loading = false;
     }
-
-
   }
 
 }

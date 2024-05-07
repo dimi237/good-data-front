@@ -8,10 +8,11 @@ import { AdminGuard } from './guards/admin.guard';
 @NgModule({
     imports: [
         RouterModule.forRoot([
+            { path: '', loadChildren: () => import('./demo/components/landing/landing.module').then(m => m.LandingModule) },
             {
                 path: '', component: AppLayoutComponent,
                 children: [
-                    { path: '', loadChildren: () => import('./demo/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
+                    { path: 'home', loadChildren: () => import('./demo/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
                     { path: 'uikit', loadChildren: () => import('./demo/components/uikit/uikit.module').then(m => m.UIkitModule) },
                     { path: 'utilities', loadChildren: () => import('./demo/components/utilities/utilities.module').then(m => m.UtilitiesModule) },
                     { path: 'documentation', loadChildren: () => import('./demo/components/documentation/documentation.module').then(m => m.DocumentationModule) },
@@ -24,11 +25,10 @@ import { AdminGuard } from './guards/admin.guard';
                     { path: 'programs', loadChildren: () => import('./demo/components/custom/programs/programs.module').then(m => m.ProgramsModule) },
                     { path: 'inscriptions', loadChildren: () => import('./demo/components/custom/inscriptions/inscriptions.module').then(m => m.InscriptionsModule) },
                 ],
-                canActivate: [AuthGuard],
+                // canActivate: [AuthGuard],
 
             },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },
-            { path: 'landing', loadChildren: () => import('./demo/components/landing/landing.module').then(m => m.LandingModule) },
             { path: 'notfound', component: NotfoundComponent },
             { path: 'formations', loadChildren: () => import('./demo/components/custom/form/form.module').then(m => m.FormModule) },
             { path: '**', redirectTo: '/notfound' },
