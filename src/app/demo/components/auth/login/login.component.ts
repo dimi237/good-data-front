@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
         private storageSrv: StorageService,
         private router: Router) { }
     ngOnInit(): void {
-        if (this.authService.isUserConnected()) { this.router.navigate(['/']); }
+        if (this.authService.isUserConnected()) { this.router.navigate(['/home']); }
     }
 
     async login(): Promise<any> {
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
             this.storageSrv.setObject('oauth', token);
             this.storageSrv.setObject('user', user);
             this.messageService.add({ severity: 'success', summary: 'Authentification réussi', detail: 'Connexion réussi' });
-            this.router.navigate(['/']);
+            this.router.navigate(['/home']);
         } catch (error) {
             this.messageService.add({ severity: 'error', summary: 'Authentification échoué', detail: error?.error?.message || 'Connexion non réussi' });
         } finally {

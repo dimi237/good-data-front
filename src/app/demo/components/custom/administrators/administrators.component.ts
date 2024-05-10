@@ -98,7 +98,7 @@ export class AdministratorsComponent implements OnInit {
         this.messageService.add({ severity: 'success', summary: 'Opération réussie', detail: 'Administrateur Ajouté', life: 3000 })
       }
 
-      const data = await this.userService.findAll();
+      const data = await this.userService.findAll({ category: 100 });
       this.users = data?.data
       this.userDialog = false;
       this.user = {};

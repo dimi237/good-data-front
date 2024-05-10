@@ -20,7 +20,7 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Home',
                 items: [
-                    { label: 'Tableau de bord', icon: 'pi pi-fw pi-home', routerLink: ['/'], },
+                    { label: 'Tableau de bord', icon: 'pi pi-fw pi-home', routerLink: ['/home'], },
                     { label: 'Administrateurs', icon: 'pi pi-fw pi-user', routerLink: ['/administrators'], visible: this.authSrv.isAdmin() },
                     { label: 'Utilisateurs', icon: 'pi pi-fw pi-users', routerLink: ['/users'], visible: this.authSrv.isAdmin() },
                     { label: "Nouvelle Demande d'analyse", icon: 'pi pi-fw pi-plus-circle', routerLink: ['/requests/new'], visible: !this.authSrv.isAdmin() },

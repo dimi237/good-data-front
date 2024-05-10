@@ -25,7 +25,7 @@ import { AdminGuard } from './guards/admin.guard';
                     { path: 'programs', loadChildren: () => import('./demo/components/custom/programs/programs.module').then(m => m.ProgramsModule) },
                     { path: 'inscriptions', loadChildren: () => import('./demo/components/custom/inscriptions/inscriptions.module').then(m => m.InscriptionsModule) },
                 ],
-                // canActivate: [AuthGuard],
+                canActivate: [AuthGuard],
 
             },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },
