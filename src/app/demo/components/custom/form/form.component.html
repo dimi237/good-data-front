@@ -5,8 +5,8 @@
         <div class="header">
             <img src="assets/layout/images/logo-white-2.png" alt="logo" class="w-10rem flex-shrink-0">
         </div>
-        <div class="content w-full flex justify-content-between align-items-start">
-            <div class="w-6">
+        <div class="content w-full flex justify-content-between xl:flex-row flex-column align-items-start">
+            <div class="lg:w-6 w-full flex justify-content-center flex-column align-items-center">
                 <h1>FORMATION DATA ANALYST</h1>
                 <p>Plongez dans le monde de l'analyse de données avec notre formation complète de 6 mois en <b>Python, SQL/MySQL, Tableau, Power BI,Excel , Cognos,Apache Airflow et plus encore ! </b>Prêt à transformer votre passion pour les chiffres en une carrière dans la tech ? 
                 </p>
@@ -18,15 +18,19 @@
                     <li>100% à distance </li>
 
                     <li>Formation certifiante </li>
+                    
+                    <li>Accompagnement sur les certifications data (
+                        Tableau, SQL ..) </li>
 
                     <li>Candidature gratuite et sans engagement</li>
+                    
 
                 </ul>
                 <img
                     src="assets/images/photo.png"
-                    alt="good data girl" loading="lazy"  height="420" style="margin-bottom: -5px;">
+                    alt="good data girl" loading="lazy"  class="lg:block" height="420" style="margin-bottom: -5px; display: none;">
             </div>
-            <div class="w-6 flex justify-content-end align-items-start">
+            <div class="lg:w-6 flex justify-content-end align-items-center">
                 <div class="form-container">
                     <h1>SUIVRE CETTE FORMATION</h1>
                     <div class="form-list__nbr-wrapper flex justify-content-between">
@@ -103,15 +107,12 @@
         <div class="content w-full flex flex-column justify-content-between align-items-center">
 
             <h1>NOTRE <span>PROGRAMME </span>DE FORMATION </h1>
-            <b class="mb-4">À distance ou sur campus, formez-vous à un métier tech passionnant ! </b>
-            <p class="mb-8 text-center">Grâce à notre <b>pédagogie par la pratique </b> et au <b>coaching de nos
+            <b class="mb-4">À distance, formez-vous à un métier tech passionnant ! </b>
+            <p class="mb-8 text-start">Grâce à notre <b>pédagogie par la pratique </b> et au <b>coaching de nos
                     formateurs experts
                     et
                     passionnés,</b> vous montez
-                rapidement en compétences sur des problématiques concrètes. Vous bénéficierez aussi de notre plateforme
-                de
-                cours en ligne et d’un accès à son contenu à vie pour progresser même une fois votre formation terminée
-                !
+                rapidement en compétences sur des problématiques concrètes.
             </p>
 
             <ul class="tc semantic-list w-full ">
@@ -123,6 +124,32 @@
 
                 </li>
             </ul>
+        </div>
+    </div>
+    <div id="contact" class="py-4 px-4 lg:px-8 my-2 md:my-4">
+        <div style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, rgba(33, 150, 243, 0.4) 10%, rgba(33, 150, 243, 0) 30%);">
+            <div class="w-full surface-card py-8 px-5 sm:px-8 flex flex-column align-items-center" style="border-radius:53px">
+                <h1 class="text-900 font-bold text-3xl lg:text-5xl mb-2">Contactez nous</h1>
+                <div class="text-600 mb-5">En cas de préocupations, d'assistances ou bien pour toutes vos questions.</div>
+                <div class="w-full flex align-items-center py-5 border-300 border-bottom-1">
+                    <span class="flex justify-content-center align-items-center bg-cyan-400 border-round" style="height:3.5rem; width:3.5rem;">
+                        <i class="text-50 pi pi-fw pi-whatsapp text-2xl"></i>
+                    </span>
+                    <span class="ml-4 flex flex-column">
+                        <span class="text-900 lg:text-xl font-medium mb-0 block">Téléphone</span>
+                        <a class="text-600 lg:text-xl hover:text-primary" href="tel:690364920">+237 690 364 920</a>
+                    </span>
+                </div>
+                <div class="w-full flex  align-items-center py-5 border-300 border-bottom-1">
+                    <span class="flex justify-content-center align-items-center bg-orange-400 border-round" style="height:3.5rem; width:3.5rem;">
+                        <i class="pi pi-fw pi-envelope text-50 text-2xl"></i>
+                    </span>
+                    <span class="ml-4 flex flex-column">
+                        <span class="text-900 lg:text-xl font-medium mb-0">Adresse email</span>
+                        <a class="text-600 lg:text-xl hover:text-primary " href="mailto:contact@good-data237.com">{{'contact@good-data237.com'}}</a>
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
     <footer class="footer-no-navigation">

@@ -2,12 +2,12 @@
     <div class="col-12">
         <div class="card px-6 py-6">
             <p-toast></p-toast>
-            <h2>Liste des programmes</h2>
+            <h2>Liste des Formations</h2>
 
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
                     <div class="my-2">
-                        <button pButton pRipple label="Ajouter un programme" icon="pi pi-plus"
+                        <button pButton pRipple label="Ajouter une formation" icon="pi pi-plus"
                             class="p-button-success mr-2" (click)="openNew()" [disabled]="loading"></button>
 
                     </div>
@@ -80,7 +80,7 @@
         </div>
 
         <p-dialog [(visible)]="programDialog" [style]="{width: '450px'}"
-            header="{{program._id ? 'Edition': 'Ajout'}} d'un programme" [modal]="true" class="p-fluid">
+            header="{{program._id ? 'Edition': 'Ajout'}} d'une formation" [modal]="true" class="p-fluid">
             <ng-template pTemplate="content">
 
                 <div class="field">

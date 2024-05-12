@@ -1,6 +1,6 @@
 export const environment = {
-  production: true,
-  apiUrl: 'http://app.good-data237',
+  production: false,
+  apiUrl: 'http://localhost:7000',
   basePath: '/api/v0',
   publicPath: '/public',
   secretKey: '$9oOzfU6bQ5@',

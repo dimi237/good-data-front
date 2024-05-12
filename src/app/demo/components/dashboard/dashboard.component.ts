@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Product } from '../../api/product';
-import { ProductService } from '../../service/product.service';
 import { Subscription, debounceTime } from 'rxjs';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { RequestsService } from '../../service/requests.service';
@@ -16,11 +15,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     items!: MenuItem[];
 
-    products!: Product[];
 
-    chartData: any;
-
-    chartOptions: any;
+    data: any;
+    
+    chart: any;
+    
+    options : any;
 
     subscription!: Subscription;
     isAdmin: boolean;
@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     inscriptions: number= 0;
     users: number= 0;
 
-    constructor(private productService: ProductService, public layoutService: LayoutService,
+    constructor( public layoutService: LayoutService,
         private requestService: RequestsService,
         private inscriptionService: InscriptionService,
         private userServices: UserService,
@@ -42,9 +42,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.initChart();
-        this.productService.getProductsSmall().then(data => this.products = data);
-
+       
         this.items = [
             { label: 'Add New', icon: 'pi pi-fw pi-plus' },
             { label: 'Remove', icon: 'pi pi-fw pi-minus' }
@@ -53,74 +51,38 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.inscriptionService.count().then((count)=> this.inscriptions = count?.count);
         this.userServices.count().then((count)=> this.users = count?.count);
         this.isAdmin = this.authService.isAdmin()
-
+        this.initChart();
+        
     }
-
+    
     initChart() {
         const documentStyle = getComputedStyle(document.documentElement);
         const textColor = documentStyle.getPropertyValue('--text-color');
-        const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-
-        this.chartData = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        
+        this.requestService.getRequestChart().then((chart)=> {
+            this.chart = chart
+        this.data = {
+            labels: ['En cours', 'Terminés', 'Annulés'],
             datasets: [
                 {
-                    label: 'En cours',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                    fill: false,
-                    backgroundColor: documentStyle.getPropertyValue('--bluegray-700'),
-                    borderColor: documentStyle.getPropertyValue('--bluegray-700'),
-                    tension: .4
-                },
-                {
-                    label: 'Terminées',
-                    data: [28, 48, 40, 19, 86, 27, 90],
-                    fill: false,
-                    backgroundColor: documentStyle.getPropertyValue('--green-600'),
-                    borderColor: documentStyle.getPropertyValue('--green-600'),
-                    tension: .4
-                },
-                {
-                    label: 'Annulées',
-                    data: [15, 45, 30, 59, 82, 47, 24],
-                    fill: false,
-                    backgroundColor: documentStyle.getPropertyValue('--red-600'),
-                    borderColor: documentStyle.getPropertyValue('--red-600'),
-                    tension: .4
+                    data: this.chart || [0,0,0],
+                    backgroundColor: [ documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500'),documentStyle.getPropertyValue('--red-600')],
+                    hoverBackgroundColor: [documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400'), documentStyle.getPropertyValue('--red-400')]
                 }
             ]
         };
-
-        this.chartOptions = {
+        this.options = {
             plugins: {
                 legend: {
                     labels: {
+                        usePointStyle: true,
                         color: textColor
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: textColorSecondary
-                    },
-                    grid: {
-                        color: surfaceBorder,
-                        drawBorder: false
-                    }
-                },
-                y: {
-                    ticks: {
-                        color: textColorSecondary
-                    },
-                    grid: {
-                        color: surfaceBorder,
-                        drawBorder: false
                     }
                 }
             }
         };
+
+    });
     }
 
     ngOnDestroy() {

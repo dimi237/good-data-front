@@ -21,7 +21,7 @@
                             <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                     <p-dropdown [ngModel]="selectedStatus" [options]="requestService.statuslist"
-                                        (onChange)="filter($event.value.label)" placeholder="Aucun filtre"
+                                        (onChange)="selectStatus($event.value.code)" placeholder="Aucun filtre"
                                         id="statusFilter" name="statusFilter" [showClear]="true">
                                     </p-dropdown>
                                 </ng-template>

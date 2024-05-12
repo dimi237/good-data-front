@@ -18,6 +18,7 @@ export class RequestsService extends CrudService<any> {
     600: { label: 'Clôturé', color: 'primary', icon: 'pi-folder' }
   }
   statuslist = [
+    { code: null, label: 'Aucun filtre', color: 'bluegray', icon: 'pi-info-circle' },
     { code: 100, label: 'Initié', color: 'bluegray', icon: 'pi-info-circle' },
     { code: 200, label: 'Validé', color: 'blue', icon: 'pi-check-circle' },
     { code: 300, label: 'Annulé', color: 'orange', icon: 'pi-undo' },
@@ -88,6 +89,10 @@ export class RequestsService extends CrudService<any> {
 
   async updateRequestByAdmin(code: string, data?: any): Promise<any> {
     return await this.request('PUT', `${code}/admin`, data);
+  }
+
+  async getRequestChart(): Promise<any> {
+    return await this.request('GET', `charts/count`, {});
   }
 
   openPaymentDialog(service: DialogService) {

@@ -42,12 +42,17 @@ export class RequestsComponent implements OnInit {
     this.isAdmin = this.authService.isAdmin()
   }
 
-  getRequests() { this.requestService.findAll().then(data => this.requests = data?.data).finally(() => this.loading = false); }
+  getRequests(options?:any) { this.requestService.findAll(options).then(data => this.requests = data?.data).finally(() => this.loading = false); }
 
 
 
   detailRequest(request: any) {
     this.router.navigate([`requests/detail/${request.code}`]);
+  }
+
+
+  selectStatus(status: any) {
+    this.getRequests({status})
   }
 
 
