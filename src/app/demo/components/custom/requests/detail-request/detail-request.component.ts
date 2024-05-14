@@ -81,7 +81,8 @@ export class DetailRequestComponent implements OnInit {
   }
 
   getPath(file: any) {
-    return `${environment.apiUrl}${environment.basePath}${environment.publicPath}/${file.fileName}`
+    // return `${environment.apiUrl}${environment.basePath}${environment.publicPath}/${file.fileName}`
+    return `${file.path}`
   }
 
   updateRequestStatus(index: number) {
