@@ -27,10 +27,12 @@ export class RequestInterceptor implements HttpInterceptor {
             try {
 
                 const oauth = this.storageSrv.getObject('oauth');
+                const user = this.authSrv.getUser();
                 if (!oauth) {
                     throw new Error('empty oauth');
                 }
                 headers = headers.append('Authorization', `Bearer ${oauth.access_token}`);
+                headers = headers.append('email', `${user?.email}`);
             } catch (error) { }
         }        
         return next.handle(req.clone({ headers }));

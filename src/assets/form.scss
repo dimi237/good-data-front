@@ -177,6 +177,8 @@
         .tc {
             display: flex;
             flex-wrap: wrap;
+            margin-block-start: unset !important;
+            margin-block-end: unset !important;
             gap: 2rem;
         }
 
@@ -188,12 +190,20 @@
             background-size: cover;
             border-radius: 8px;
             color: #fff;
-            width: 45%;
-            padding: 2rem;
+            width: 100%;
+            @media (min-width: 1200px) {
+                padding: 2rem;
+                width: 45%;
+                .h3 {
+                    font-weight: 900;
+                    font-size: 20px
+                }
+            }
+            padding: 1rem;
 
             .h3 {
                 font-weight: 900;
-                font-size: 20px
+                font-size: 17px
             }
 
             .tc__text {

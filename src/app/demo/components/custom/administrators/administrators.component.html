@@ -116,8 +116,14 @@
                         *ngIf="submitted && !authService.validateEmail(this.user.email)">Adresse email non
                         conforme.</small>
                 </div>
-            </ng-template>
+                <div class="field">
+                    <label for="email">Mot de passe</label>
+                    <p-password [(ngModel)]="user.password" [toggleMask]="true"
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted && !user.password}"></p-password>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !user.password">Mot de passe requis.</small>
 
+                </div>
+            </ng-template>
             <ng-template pTemplate="footer">
                 <button pButton pRipple label="Fermer" icon="pi pi-times" class="p-button-text"
                     (click)="hideDialog()"></button>
@@ -125,7 +131,6 @@
                     (click)="saveUser()"></button>
             </ng-template>
         </p-dialog>
-
 
         <p-dialog [(visible)]="userDetailDialog" [style]="{width: '450px'}" header="Hitorique de connexion"
             [modal]="true" class="p-fluid">

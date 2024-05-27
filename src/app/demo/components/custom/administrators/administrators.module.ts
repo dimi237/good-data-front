@@ -19,6 +19,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { AdministratorsComponent } from './administrators.component';
 import { SkeletonModule } from 'primeng/skeleton';
 import { OrderListModule } from 'primeng/orderlist';
+import { PasswordModule } from 'primeng/password';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { OrderListModule } from 'primeng/orderlist';
     InputNumberModule,
     SkeletonModule,
     OrderListModule,
+    PasswordModule,
     DialogModule
   ]
 })

@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as moment from 'moment';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AuthService } from 'src/app/demo/service/auth.service';
 import { RequestsService } from 'src/app/demo/service/requests.service';
-import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -59,7 +57,6 @@ export class DetailRequestComponent implements OnInit {
     this.getRequest();
     this.isAdmin = this.authService.isAdmin();
     this.minDate = new Date();
-
   }
 
   getRequest() {
